@@ -3,45 +3,23 @@
 import { motion } from 'framer-motion'
 import { UserPlus, SlidersHorizontal, Inbox, Send } from 'lucide-react'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
+import { useI18n } from '@/i18n/I18nContext'
 
-const steps = [
-  {
-    step: '01',
-    icon: UserPlus,
-    title: 'Create Your Account',
-    description:
-      'Sign up in under 2 minutes. Enter your business details, sector, and regions of interest to personalize your experience.',
-    color: 'blue',
-  },
-  {
-    step: '02',
-    icon: SlidersHorizontal,
-    title: 'Select Your Interests',
-    description:
-      'Choose business categories, geographic zones, and budget ranges. Our AI uses this to filter the thousands of daily tenders.',
-    color: 'green',
-  },
-  {
-    step: '03',
-    icon: Inbox,
-    title: 'Receive Matching Tenders',
-    description:
-      'Get a curated daily digest of tenders matched to your profile. Each one comes with an AI summary and fit score.',
-    color: 'blue',
-  },
-  {
-    step: '04',
-    icon: Send,
-    title: 'Apply Before the Deadline',
-    description:
-      'Track deadlines with visual alerts. Download documents, review AI analysis, and submit your bid on time, every time.',
-    color: 'green',
-  },
-]
+const stepIcons = [UserPlus, SlidersHorizontal, Inbox, Send]
+const stepColors = ['blue', 'green', 'blue', 'green']
 
 export default function HowItWorks() {
+  const { t } = useI18n()
+
+  const steps = [
+    { step: '01', title: t.howItWorks.step1Title, description: t.howItWorks.step1Desc },
+    { step: '02', title: t.howItWorks.step2Title, description: t.howItWorks.step2Desc },
+    { step: '03', title: t.howItWorks.step3Title, description: t.howItWorks.step3Desc },
+    { step: '04', title: t.howItWorks.step4Title, description: t.howItWorks.step4Desc },
+  ]
+
   return (
-    <section className="py-24 lg:py-32 relative">
+    <section id="how-it-works" className="py-24 lg:py-32 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-white to-slate-50 dark:from-[#0B1220] dark:to-[#080E1A]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,22 +32,22 @@ export default function HowItWorks() {
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-16">
             <motion.div variants={fadeInUp} className="inline-flex mb-4">
-              <span className="px-3 py-1 rounded-full border border-[#14754E]/30 bg-[#14754E]/8 dark:bg-[#14754E]/10 text-[#14754E] dark:text-[#1A9663] text-sm font-medium">
-                Simple process
+              <span className="px-3 py-1 rounded-full border border-[#14754E]/30 bg-[#14754E]/8 dark:bg-[#14754E]/10 text-[#14754E] dark:text-[#2E9D6A] text-sm font-medium">
+                {t.howItWorks.tag}
               </span>
             </motion.div>
             <motion.h2
               variants={fadeInUp}
               className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4"
             >
-              From signup to{' '}
-              <span className="text-gradient">winning tenders</span>
+              {t.howItWorks.heading1}{' '}
+              <span className="text-gradient">{t.howItWorks.headingHighlight}</span>
             </motion.h2>
             <motion.p
               variants={fadeInUp}
               className="text-lg text-slate-600 dark:text-slate-400"
             >
-              Get started in minutes. No learning curve.
+              {t.howItWorks.description}
             </motion.p>
           </div>
 
@@ -80,8 +58,7 @@ export default function HowItWorks() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {steps.map((step, i) => {
-                const Icon = step.icon
-                const isBlue = step.color === 'blue'
+                const Icon = stepIcons[i]
                 return (
                   <motion.div
                     key={i}
@@ -90,11 +67,7 @@ export default function HowItWorks() {
                   >
                     {/* Step circle */}
                     <div
-                      className={`relative w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg ${
-                        isBlue
-                          ? 'bg-gradient-to-br from-[#5CA3E0] to-[#3D8DD4] shadow-[#5CA3E0]/25'
-                          : 'bg-gradient-to-br from-[#14754E] to-[#0F5A3C] shadow-[#14754E]/25'
-                      }`}
+                      className="relative w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg bg-gradient-to-br from-[#14754E] to-[#0F5B3C] shadow-[#14754E]/25"
                     >
                       <Icon className="w-6 h-6 text-white" />
                       <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-white dark:bg-[#0F1A2E] border-2 border-slate-200 dark:border-white/10 flex items-center justify-center">
@@ -120,9 +93,9 @@ export default function HowItWorks() {
           <motion.div variants={fadeInUp} className="mt-16 text-center">
             <a
               href="#download"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-[#5CA3E0] to-[#14754E] bg-size-300 hover:bg-right shadow-xl shadow-[#5CA3E0]/25 hover:shadow-[#5CA3E0]/40 hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-[#14754E] to-[#2E9D6A] shadow-xl shadow-[#14754E]/25 hover:shadow-[#14754E]/40 hover:-translate-y-0.5 transition-all duration-300"
             >
-              Start for free today
+              {t.howItWorks.cta}
             </a>
           </motion.div>
         </motion.div>

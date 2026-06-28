@@ -1,41 +1,44 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { TrendingUp, RefreshCw, Brain, Bell } from 'lucide-react'
+import { TrendingUp, RefreshCw, Globe, Bell } from 'lucide-react'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
-
-const stats = [
-  {
-    icon: TrendingUp,
-    value: '50,000+',
-    label: 'Public Tenders',
-    description: 'From all Moroccan government agencies',
-    color: 'blue',
-  },
-  {
-    icon: RefreshCw,
-    value: 'Daily',
-    label: 'Automatic Updates',
-    description: 'New tenders added every morning',
-    color: 'green',
-  },
-  {
-    icon: Brain,
-    value: 'AI-Powered',
-    label: 'Smart Analysis',
-    description: 'Summaries, risks, and scoring in seconds',
-    color: 'blue',
-  },
-  {
-    icon: Bell,
-    value: 'Instant',
-    label: 'Notifications',
-    description: 'Get alerts before the deadline closes',
-    color: 'green',
-  },
-]
+import { useI18n } from '@/i18n/I18nContext'
 
 export default function Trusted() {
+  const { t } = useI18n()
+
+  const stats = [
+    {
+      icon: RefreshCw,
+      value: t.trusted.stat1Value,
+      label: t.trusted.stat1Label,
+      description: t.trusted.stat1Desc,
+      color: 'green',
+    },
+    {
+      icon: Bell,
+      value: t.trusted.stat2Value,
+      label: t.trusted.stat2Label,
+      description: t.trusted.stat2Desc,
+      color: 'blue',
+    },
+    {
+      icon: Globe,
+      value: t.trusted.stat3Value,
+      label: t.trusted.stat3Label,
+      description: t.trusted.stat3Desc,
+      color: 'green',
+    },
+    {
+      icon: TrendingUp,
+      value: t.trusted.stat4Value,
+      label: t.trusted.stat4Label,
+      description: t.trusted.stat4Desc,
+      color: 'blue',
+    },
+  ]
+
   return (
     <section className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white dark:from-[#080E1A] dark:to-[#0B1220]" />
@@ -51,7 +54,7 @@ export default function Trusted() {
             variants={fadeInUp}
             className="text-center text-sm font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-12"
           >
-            Trusted by businesses across Morocco
+            {t.trusted.heading}
           </motion.p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -68,7 +71,7 @@ export default function Trusted() {
                     className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${
                       isBlue
                         ? 'bg-[#5CA3E0]/10 text-[#5CA3E0]'
-                        : 'bg-[#14754E]/10 text-[#14754E] dark:text-[#1A9663]'
+                        : 'bg-[#14754E]/10 text-[#14754E] dark:text-[#2E9D6A]'
                     }`}
                   >
                     <Icon className="w-5 h-5" />

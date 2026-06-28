@@ -1,36 +1,48 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'
+import { I18nProvider } from '@/i18n/I18nContext'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import './globals.css'
 import Script from "next/script";
 
 const inter = Inter({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   variable: '--font-inter',
   display: 'swap',
 })
 
-const siteUrl = 'https://www.mluetenders.com'
+const siteUrl = 'https://mluetenders.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  applicationName: "Mlue Tenders",
+
+  category: "Business",
+
+  classification: "Business, Government Procurement, Tender Platform",
+
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
   title: {
     default: 'Mlue Tenders — Discover Moroccan Public Tenders Before Everyone Else',
     template: '%s | Mlue Tenders',
   },
   description:
-    'Mlue Tenders helps companies, SMEs, freelancers, and contractors discover Moroccan public tenders, receive personalized notifications, and analyze tenders using AI — so you never miss a business opportunity.',
+    'Mlue Tenders helps companies, SMEs, freelancers, and contractors discover Moroccan public tenders, receive personalized notifications, and track opportunities — so you never miss a business opportunity.',
   keywords: [
     'Morocco tenders',
-    'appels d\'offres Maroc',
+    "appels d'offres Maroc",
     'marchés publics',
     'tender discovery',
-    'AI tender analysis',
     'government procurement Morocco',
     'Mlue Tenders',
     'mluetenders',
+    'مناقصات المغرب',
   ],
   authors: [{ name: 'Mlue Tenders', url: siteUrl }],
   creator: 'Mlue Tenders',
@@ -53,13 +65,13 @@ export const metadata: Metadata = {
     siteName: 'Mlue Tenders',
     title: 'Mlue Tenders — Discover Moroccan Public Tenders Before Everyone Else',
     description:
-      'AI-powered platform to discover, analyze, and track Moroccan public tenders. Get personalized notifications and never miss a business opportunity.',
+      'Discover, track, and get notified about Moroccan public tenders. Never miss a business opportunity again.',
     images: [
       {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: 'Mlue Tenders — AI-powered tender discovery platform',
+        alt: 'Mlue Tenders — Moroccan public tender discovery platform',
       },
     ],
   },
@@ -67,7 +79,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Mlue Tenders — Discover Moroccan Public Tenders Before Everyone Else',
     description:
-      'AI-powered platform to discover, analyze, and track Moroccan public tenders. Get personalized notifications and never miss a business opportunity.',
+      'Discover, track, and get notified about Moroccan public tenders. Never miss a business opportunity again.',
     images: [`${siteUrl}/og-image.png`],
     creator: '@mluetenders',
   },
@@ -82,34 +94,32 @@ export const metadata: Metadata = {
   },
 }
 
-const jsonLd = {
+const appSchema  = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'Mlue Tenders',
   url: siteUrl,
   description:
-    'AI-powered platform to discover Moroccan public tenders, receive personalized notifications, and analyze tenders with AI.',
+    'Mobile platform to discover Moroccan public tenders, receive personalized notifications, and track opportunities.',
   applicationCategory: 'BusinessApplication',
-  operatingSystem: 'iOS, Android',
-  offers: [
-    {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'MAD',
-      name: 'Free Plan',
-    },
-    {
-      '@type': 'Offer',
-      price: '149',
-      priceCurrency: 'MAD',
-      name: 'Premium Plan',
-    },
-  ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    ratingCount: '512',
-  },
+  operatingSystem: 'Android',
+}
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Mlue Tenders',
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  sameAs: [],
+}
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Mlue Tenders',
+  url: siteUrl,
+  inLanguage: 'en',
 }
 
 export default function RootLayout({
@@ -118,18 +128,22 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" dir="ltr" suppressHydrationWarning className={inter.variable}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([organizationSchema, websiteSchema, appSchema]),
+          }}
         />
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <I18nProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </I18nProvider>
         </ThemeProvider>
 
         <Script

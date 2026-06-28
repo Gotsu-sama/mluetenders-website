@@ -4,19 +4,22 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, TrendingUp } from 'lucide-react'
 import ThemeToggle from '@/components/ui/ThemeToggle'
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
+import { useI18n } from '@/i18n/I18nContext'
 import { cn } from '@/lib/utils'
 
-const navLinks = [
-  { href: '/#features', label: 'Features' },
-  { href: '/#ai', label: 'AI Analysis' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/contact', label: 'Contact' },
-]
-
 export default function Navbar() {
+  const { t } = useI18n()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const navLinks = [
+    { href: '/#features', label: t.nav.features },
+    { href: '/#how-it-works', label: t.nav.howItWorks },
+    { href: '/pricing', label: t.nav.pricing },
+    { href: '/faq', label: t.nav.faq },
+    { href: '/contact', label: t.nav.contact },
+  ]
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 16)
@@ -48,7 +51,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 rounded-xl bg-gradient-to-br from-[#5CA3E0] to-[#14754E] flex items-center justify-center shadow-lg shadow-[#5CA3E0]/25">
+            <div className="relative w-8 h-8 rounded-xl bg-gradient-to-br from-[#14754E] to-[#2E9D6A] flex items-center justify-center shadow-lg shadow-[#14754E]/25">
               <TrendingUp className="w-4 h-4 text-white" strokeWidth={2.5} />
             </div>
             <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white">
@@ -70,18 +73,20 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop Right */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
+            <LanguageSwitcher />
             <ThemeToggle />
             <Link
               href="/#download"
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#5CA3E0] to-[#3D8DD4] hover:from-[#7BB8E8] hover:to-[#5CA3E0] text-white shadow-lg shadow-[#5CA3E0]/25 transition-all duration-200 hover:shadow-[#5CA3E0]/40 hover:-translate-y-0.5"
+              className="px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#14754E] to-[#2E9D6A] hover:from-[#2E9D6A] hover:to-[#14754E] text-white shadow-lg shadow-[#14754E]/25 transition-all duration-200 hover:shadow-[#14754E]/40 hover:-translate-y-0.5"
             >
-              Get Started
+              {t.nav.getStarted}
             </Link>
           </div>
 
           {/* Mobile toggle */}
           <div className="flex md:hidden items-center gap-2">
+            <LanguageSwitcher />
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -118,9 +123,9 @@ export default function Navbar() {
             <Link
               href="/#download"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center w-full px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#5CA3E0] to-[#3D8DD4] text-white shadow-lg"
+              className="flex items-center justify-center w-full px-4 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#14754E] to-[#2E9D6A] text-white shadow-lg shadow-[#14754E]/25"
             >
-              Get Started
+              {t.nav.getStarted}
             </Link>
           </div>
         </div>

@@ -13,7 +13,7 @@ const sections = [
   },
   {
     title: '2. Description of Service',
-    content: `Mlue Tenders provides an AI-powered platform for discovering Moroccan public tenders, receiving notifications, and analyzing tender documents. Our service aggregates publicly available tender information from official government sources.`,
+    content: `Mlue Tenders provides a mobile platform for discovering Moroccan public tenders, receiving notifications, and browsing tender documents. Our service aggregates publicly available tender information from official government sources.`,
   },
   {
     title: '3. User Accounts',
@@ -29,7 +29,7 @@ const sections = [
   },
   {
     title: '6. Intellectual Property',
-    content: `All content, features, and functionality of Mlue Tenders — including but not limited to software, AI models, design, text, and graphics — are owned by Mlue Tenders and protected by applicable intellectual property laws.`,
+    content: `All content, features, and functionality of Mlue Tenders — including but not limited to software, design, text, and graphics — are owned by Mlue Tenders and protected by applicable intellectual property laws.`,
   },
   {
     title: '7. Disclaimer of Warranties',

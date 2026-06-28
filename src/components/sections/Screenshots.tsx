@@ -2,54 +2,51 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, LayoutDashboard, Search, ClipboardList, Clock, Bell, type LucideIcon } from 'lucide-react'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
+import { useI18n } from '@/i18n/I18nContext'
 
-const screens = [
-  {
-    title: 'Personalized Dashboard',
-    description: 'Your daily tender feed, curated by AI based on your business profile and past interactions.',
-    color: '#5CA3E0',
-    emoji: '🏠',
-    items: ['23 new tenders today', 'Your match score: 91%', 'Deadline alerts: 3'],
-  },
-  {
-    title: 'Smart Search & Filters',
-    description: 'Powerful filters by sector, region, budget range, and deadline. Find exactly what you need.',
-    color: '#14754E',
-    emoji: '🔍',
-    items: ['Filter by 12 sectors', 'Region & city filter', 'Budget range slider'],
-  },
-  {
-    title: 'AI Tender Analysis',
-    description: 'Deep AI analysis delivered in seconds — summary, risks, eligibility, and competitiveness score.',
-    color: '#5CA3E0',
-    emoji: '🤖',
-    items: ['Risk: Low', 'Match: 91%', 'Summary in 3 languages'],
-  },
-  {
-    title: 'Deadline Tracker',
-    description: 'Visual timeline of all your saved tenders with countdown timers and priority alerts.',
-    color: '#14754E',
-    emoji: '⏰',
-    items: ['Visual timeline', 'Priority sorting', 'Push notifications'],
-  },
-  {
-    title: 'Notifications Center',
-    description: 'Real-time alerts for new tenders, deadline reminders, and market intelligence updates.',
-    color: '#5CA3E0',
-    emoji: '🔔',
-    items: ['Real-time push alerts', 'Daily digest email', 'Custom alert rules'],
-  },
-]
+const screenIcons: LucideIcon[] = [LayoutDashboard, Search, ClipboardList, Clock, Bell]
+const screenColors = ['#5CA3E0', '#14754E', '#5CA3E0', '#14754E', '#5CA3E0']
 
 export default function Screenshots() {
+  const { t } = useI18n()
   const [active, setActive] = useState(0)
+
+  const screens = [
+    {
+      title: t.screenshots.s1Title,
+      description: t.screenshots.s1Desc,
+      items: [t.screenshots.s1i1, t.screenshots.s1i2, t.screenshots.s1i3],
+    },
+    {
+      title: t.screenshots.s2Title,
+      description: t.screenshots.s2Desc,
+      items: [t.screenshots.s2i1, t.screenshots.s2i2, t.screenshots.s2i3],
+    },
+    {
+      title: t.screenshots.s3Title,
+      description: t.screenshots.s3Desc,
+      items: [t.screenshots.s3i1, t.screenshots.s3i2, t.screenshots.s3i3],
+    },
+    {
+      title: t.screenshots.s4Title,
+      description: t.screenshots.s4Desc,
+      items: [t.screenshots.s4i1, t.screenshots.s4i2, t.screenshots.s4i3],
+    },
+    {
+      title: t.screenshots.s5Title,
+      description: t.screenshots.s5Desc,
+      items: [t.screenshots.s5i1, t.screenshots.s5i2, t.screenshots.s5i3],
+    },
+  ]
 
   const prev = () => setActive((a) => (a - 1 + screens.length) % screens.length)
   const next = () => setActive((a) => (a + 1) % screens.length)
 
   const screen = screens[active]
+  const color = screenColors[active]
+  const ScreenIcon = screenIcons[active]
 
   return (
     <section className="py-24 lg:py-32 relative overflow-hidden">
@@ -66,18 +63,18 @@ export default function Screenshots() {
           <div className="text-center max-w-2xl mx-auto mb-16">
             <motion.div variants={fadeInUp} className="inline-flex mb-4">
               <span className="px-3 py-1 rounded-full border border-[#5CA3E0]/25 bg-[#5CA3E0]/8 dark:bg-[#5CA3E0]/10 text-[#5CA3E0] text-sm font-medium">
-                App screenshots
+                {t.screenshots.tag}
               </span>
             </motion.div>
             <motion.h2
               variants={fadeInUp}
               className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4"
             >
-              Beautiful design,{' '}
-              <span className="text-gradient">powerful features</span>
+              {t.screenshots.heading1}{' '}
+              <span className="text-gradient">{t.screenshots.headingHighlight}</span>
             </motion.h2>
             <motion.p variants={fadeInUp} className="text-lg text-slate-600 dark:text-slate-400">
-              Explore the app experience crafted for ease and efficiency.
+              {t.screenshots.description}
             </motion.p>
           </div>
 
@@ -100,10 +97,15 @@ export default function Screenshots() {
                   >
                     <div className="text-center mb-6">
                       <div
-                        className="w-16 h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center text-3xl"
-                        style={{ background: `${screen.color}20` }}
+                        className="w-16 h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center"
+                        style={{ background: `${color}20` }}
                       >
-                        {screen.emoji}
+                        <ScreenIcon
+                          className="w-7 h-7"
+                          style={{ color }}
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                        />
                       </div>
                       <p className="text-white font-bold text-sm">{screen.title}</p>
                     </div>
@@ -115,7 +117,7 @@ export default function Screenshots() {
                         >
                           <div
                             className="w-2 h-2 rounded-full flex-shrink-0"
-                            style={{ background: screen.color }}
+                            style={{ background: color }}
                           />
                           <span className="text-xs text-slate-300">{item}</span>
                         </div>
@@ -123,9 +125,9 @@ export default function Screenshots() {
                     </div>
                     <div
                       className="mt-4 py-3 rounded-xl text-center text-sm font-semibold text-white"
-                      style={{ background: `linear-gradient(135deg, ${screen.color}, ${screen.color}99)` }}
+                      style={{ background: `linear-gradient(135deg, ${color}, ${color}99)` }}
                     >
-                      View Details
+                      {t.screenshots.viewDetails}
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -144,9 +146,9 @@ export default function Screenshots() {
                 >
                   <div
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold mb-5"
-                    style={{ background: `${screen.color}15`, color: screen.color }}
+                    style={{ background: `${color}15`, color }}
                   >
-                    Screen {active + 1} of {screens.length}
+                    {t.screenshots.screenOf} {active + 1} / {screens.length}
                   </div>
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
                     {screen.title}
@@ -178,7 +180,7 @@ export default function Screenshots() {
                       <div
                         className={`rounded-full transition-all duration-300 ${
                           i === active
-                            ? 'w-6 h-2 bg-[#5CA3E0]'
+                            ? 'w-6 h-2 bg-[#14754E]'
                             : 'w-2 h-2 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/30'
                         }`}
                       />

@@ -16,7 +16,7 @@ export default function Badge({ children, variant = 'default', className }: Badg
         variant === 'blue' &&
           'bg-[#5CA3E0]/10 text-[#5CA3E0] border border-[#5CA3E0]/20',
         variant === 'green' &&
-          'bg-[#14754E]/10 text-[#14754E] dark:text-[#1A9663] border border-[#14754E]/20',
+          'bg-[#14754E]/10 text-[#14754E] dark:text-[#2E9D6A] border border-[#14754E]/20',
         variant === 'outline' &&
           'border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400',
         className
