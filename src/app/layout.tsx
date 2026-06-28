@@ -98,6 +98,8 @@ export const metadata: Metadata = {
   },
 }
 
+const PREMIUM_ANNUAL_PRICE_MAD = '699'
+
 const appSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -107,6 +109,35 @@ const appSchema = {
     'Mobile platform to discover Moroccan public tenders, receive personalized notifications, and track opportunities.',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Android',
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'MAD',
+    lowPrice: '0',
+    highPrice: PREMIUM_ANNUAL_PRICE_MAD,
+    offerCount: 2,
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free',
+        price: '0',
+        priceCurrency: 'MAD',
+        availability: 'https://schema.org/InStock',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Premium',
+        price: PREMIUM_ANNUAL_PRICE_MAD,
+        priceCurrency: 'MAD',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: PREMIUM_ANNUAL_PRICE_MAD,
+          priceCurrency: 'MAD',
+          unitCode: 'ANN',
+        },
+        availability: 'https://schema.org/InStock',
+      },
+    ],
+  },
 }
 
 const organizationSchema = {
