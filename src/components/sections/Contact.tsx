@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Mail, MessageSquare, Send, CheckCircle } from 'lucide-react'
 import { staggerContainer, fadeInUp, slideInLeft, slideInRight } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { analytics } from '@/lib/analytics'
 
 export default function Contact() {
   const { t } = useI18n()
@@ -13,6 +14,7 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    analytics.contactClick('form')
     setSubmitted(true)
   }
 
@@ -53,6 +55,7 @@ export default function Contact() {
             <div className="flex flex-col gap-5">
               <a
                 href="mailto:support@mluetenders.com"
+                onClick={() => analytics.contactClick('email')}
                 className="group flex items-center gap-4 p-5 rounded-2xl border border-slate-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.03] hover:border-[#5CA3E0]/30 hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className="w-11 h-11 rounded-xl bg-[#5CA3E0]/10 flex items-center justify-center text-[#5CA3E0] group-hover:scale-110 transition-transform">

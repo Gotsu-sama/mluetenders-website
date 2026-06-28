@@ -4,12 +4,14 @@ import { motion } from 'framer-motion'
 import { Check, X, Zap } from 'lucide-react'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { analytics } from '@/lib/analytics'
 
 export default function Pricing() {
   const { t } = useI18n()
 
   const plans = [
     {
+      id: 'free',
       name: t.pricing.freeName,
       price: '0',
       currency: 'MAD',
@@ -31,6 +33,7 @@ export default function Pricing() {
       ],
     },
     {
+      id: 'premium',
       name: t.pricing.premiumName,
       price: '149',
       currency: 'MAD',
@@ -130,6 +133,7 @@ export default function Pricing() {
 
                 <a
                   href="#download"
+                  onClick={() => analytics.pricingClick(plan.id)}
                   className={`flex items-center justify-center w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 mb-8 ${
                     plan.ctaStyle === 'primary'
                       ? 'bg-gradient-to-r from-[#14754E] to-[#2E9D6A] text-white shadow-lg shadow-[#14754E]/25 hover:shadow-[#14754E]/40 hover:-translate-y-0.5'

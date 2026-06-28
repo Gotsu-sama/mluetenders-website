@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus } from 'lucide-react'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { analytics } from '@/lib/analytics'
 
 function FAQItem({ question, answer, isOpen, onToggle }: {
   question: string
@@ -113,7 +114,10 @@ export default function FAQ() {
                   question={faq.question}
                   answer={faq.answer}
                   isOpen={openIndex === i}
-                  onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+                  onToggle={() => {
+                    if (openIndex !== i) analytics.faqOpen(faq.question)
+                    setOpenIndex(openIndex === i ? null : i)
+                  }}
                 />
               ))}
             </div>

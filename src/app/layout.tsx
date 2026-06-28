@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/ui/ThemeProvider'
 import { I18nProvider } from '@/i18n/I18nContext'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import ScrollTracker from '@/components/analytics/ScrollTracker'
 import './globals.css'
 import Script from "next/script";
 
@@ -137,12 +138,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <I18nProvider>
             <Navbar />
             <main>{children}</main>
             <Footer />
+            <ScrollTracker />
           </I18nProvider>
         </ThemeProvider>
 

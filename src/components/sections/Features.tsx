@@ -13,9 +13,11 @@ import {
 } from 'lucide-react'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { analytics } from '@/lib/analytics'
 
 const featureIcons = [Search, FileText, ClipboardList, Clock, Star, LayoutList, Bell, Globe]
 const featureColors = ['blue', 'green', 'blue', 'green', 'blue', 'green', 'blue', 'green']
+const featureIds = ['search', 'overview', 'checklist', 'deadlines', 'saved', 'feed', 'notifications', 'multilingual']
 
 export default function Features() {
   const { t } = useI18n()
@@ -71,7 +73,8 @@ export default function Features() {
                 <motion.div
                   key={i}
                   variants={fadeInUp}
-                  className="group relative p-6 rounded-2xl border bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/[0.07] hover:border-[#5CA3E0]/30 dark:hover:border-[#5CA3E0]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-[#5CA3E0]/5 cursor-default"
+                  onClick={() => analytics.featureClick(featureIds[i])}
+                  className="group relative p-6 rounded-2xl border bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/[0.07] hover:border-[#5CA3E0]/30 dark:hover:border-[#5CA3E0]/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-[#5CA3E0]/5 cursor-pointer"
                 >
                   <div
                     className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${

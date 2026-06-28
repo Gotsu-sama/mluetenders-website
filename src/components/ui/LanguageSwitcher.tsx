@@ -55,7 +55,7 @@ export default function LanguageSwitcher({ className }: { className?: string }) 
               className={cn(
                 'w-full text-left rtl:text-right px-4 py-2.5 text-sm transition-colors duration-150',
                 l.code === locale
-                  ? 'bg-[#5CA3E0]/10 text-[#5CA3E0] font-semibold'
+                  ? 'bg-[#14754E]/10 text-[#14754E] dark:text-[#2E9D6A] font-semibold'
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5'
               )}
             >

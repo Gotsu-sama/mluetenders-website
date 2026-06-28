@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { TrendingUp, Mail, MapPin, Heart } from 'lucide-react'
+import { TrendingUp, Mail, MapPin } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nContext'
 
 export default function Footer() {
@@ -85,11 +85,12 @@ export default function Footer() {
           <p className="text-sm text-slate-400 dark:text-slate-500">
             © {new Date().getFullYear()} Mlue Tenders. {t.footer.rights}
           </p>
-          <div className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500">
-            <span>{t.footer.madeWith}</span>
-            <Heart className="w-3.5 h-3.5 text-red-400 fill-red-400" aria-hidden="true" />
-            <span>{t.footer.forMorocco}</span>
-          </div>
+          <p className="text-sm text-slate-400 dark:text-slate-500">
+            Crafted by{' '}
+            <span className="font-semibold tracking-wide text-slate-600 dark:text-slate-300">
+              Mlue <span className="text-gradient">Studio</span>&#174;
+            </span>
+          </p>
         </div>
       </div>
     </footer>
