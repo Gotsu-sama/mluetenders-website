@@ -230,7 +230,6 @@ export type Translations = {
     headingHighlight: string
     description: string
     emailLabel: string
-    emailEmail: string
     chatLabel: string
     chatSub: string
     nameLabel: string
@@ -239,11 +238,16 @@ export type Translations = {
     emailPlaceholder: string
     companyLabel: string
     companyPlaceholder: string
+    subjectLabel: string
+    subjectPlaceholder: string
     messageLabel: string
     messagePlaceholder: string
     send: string
     successTitle: string
     successDesc: string
+    validationRequired: string
+    validationEmail: string
+    errorMessage: string
   }
   download: {
     heading1: string
@@ -285,6 +289,32 @@ export type Translations = {
     faqHeading1: string
     faqHeadingHighlight: string
     faqDesc: string
+    contactTag: string
+    contactHeading1: string
+    contactHeadingHighlight: string
+    contactDesc: string
+  }
+  launchOffer: {
+    badge: string
+    badgeHot: string
+    onlyLabel: string
+    spotsRemainingTitle: string
+    perFirstYear: string
+    spotsOf: string
+    spotsRemaining: string
+    firstYearOnly: string
+    priceDescTemplate: string
+    filledLabel: string
+    insteadOf: string
+    claimCta: string
+    limitedFirst: string
+    limitedCustomers: string
+    autoEnds: string
+    afterRenewal: string
+    cta: string
+    ended: string
+    endedSub: string
+    perYear: string
   }
 }
 
@@ -520,9 +550,8 @@ export const en: Translations = {
     heading1: "We're here to",
     headingHighlight: 'help you grow',
     description:
-      'Have a question about Mlue Tenders? Want to explore an enterprise plan or partnership? We\'d love to hear from you.',
-    emailLabel: 'Email Support',
-    emailEmail: 'support@mluetenders.com',
+      "Have a question about Mlue Tenders? Want to explore an enterprise plan or partnership? We'd love to hear from you.",
+    emailLabel: 'Email Us',
     chatLabel: 'In-App Support',
     chatSub: 'Reply within 24 hours',
     nameLabel: 'Full Name *',
@@ -531,11 +560,16 @@ export const en: Translations = {
     emailPlaceholder: 'ahmed@example.com',
     companyLabel: 'Company Name',
     companyPlaceholder: 'Your company (optional)',
+    subjectLabel: 'Subject *',
+    subjectPlaceholder: 'What is your message about?',
     messageLabel: 'Message *',
     messagePlaceholder: 'How can we help you?',
     send: 'Send Message',
     successTitle: 'Message Sent!',
     successDesc: "We'll get back to you within 24 hours.",
+    validationRequired: 'This field is required.',
+    validationEmail: 'Please enter a valid email address.',
+    errorMessage: 'Something went wrong. Please try again.',
   },
   download: {
     heading1: 'Ready to win more',
@@ -580,6 +614,32 @@ export const en: Translations = {
     faqHeading1: 'Frequently asked',
     faqHeadingHighlight: 'questions',
     faqDesc: 'Find quick answers to everything you want to know about Mlue Tenders.',
+    contactTag: 'Get in touch',
+    contactHeading1: "We'd love to",
+    contactHeadingHighlight: 'hear from you',
+    contactDesc: 'Questions, feedback, partnerships — our team is ready to help.',
+  },
+  launchOffer: {
+    badge: 'Launch Offer',
+    badgeHot: 'Almost Gone',
+    onlyLabel: 'Only',
+    spotsRemainingTitle: 'Spots Remaining',
+    perFirstYear: '/ First Year',
+    spotsOf: 'of',
+    spotsRemaining: 'spots remaining',
+    firstYearOnly: 'First Year Only',
+    priceDescTemplate: 'Get your first year for only {launch} DH instead of {regular} DH.',
+    filledLabel: 'filled',
+    insteadOf: 'instead of',
+    claimCta: 'Claim Launch Offer',
+    limitedFirst: 'Limited to the first',
+    limitedCustomers: 'customers.',
+    autoEnds: 'Offer ends automatically when all spots are claimed.',
+    afterRenewal: 'Renews at the regular yearly price after the first year.',
+    cta: 'Get Launch Offer',
+    ended: 'Launch Offer Ended',
+    endedSub: 'Subscribe now at the standard price.',
+    perYear: '/ Year',
   },
 }
 
@@ -816,21 +876,25 @@ export const fr: Translations = {
     headingHighlight: 'vous aider à grandir',
     description:
       "Une question sur Mlue Tenders ? Vous souhaitez explorer un plan entreprise ou un partenariat ? Nous serions ravis de vous entendre.",
-    emailLabel: 'Support par e-mail',
-    emailEmail: 'support@mluetenders.com',
+    emailLabel: 'Nous écrire',
     chatLabel: 'Support in-app',
     chatSub: 'Réponse sous 24 heures',
     nameLabel: 'Nom complet *',
     namePlaceholder: 'Ahmed Benali',
     emailInputLabel: 'Adresse e-mail *',
     emailPlaceholder: 'ahmed@exemple.com',
-    companyLabel: 'Nom de l\'entreprise',
+    companyLabel: "Nom de l'entreprise",
     companyPlaceholder: 'Votre entreprise (facultatif)',
+    subjectLabel: 'Sujet *',
+    subjectPlaceholder: "De quoi s'agit-il ?",
     messageLabel: 'Message *',
     messagePlaceholder: 'Comment pouvons-nous vous aider ?',
     send: 'Envoyer le message',
     successTitle: 'Message envoyé !',
     successDesc: 'Nous vous répondrons dans les 24 heures.',
+    validationRequired: 'Ce champ est obligatoire.',
+    validationEmail: 'Veuillez saisir une adresse e-mail valide.',
+    errorMessage: "Une erreur s'est produite. Veuillez réessayer.",
   },
   download: {
     heading1: 'Prêt à remporter plus',
@@ -875,6 +939,32 @@ export const fr: Translations = {
     faqHeading1: 'Questions',
     faqHeadingHighlight: 'fréquentes',
     faqDesc: "Trouvez rapidement des réponses à toutes vos questions sur Mlue Tenders.",
+    contactTag: 'Nous contacter',
+    contactHeading1: 'Ravi de',
+    contactHeadingHighlight: 'vous entendre',
+    contactDesc: 'Questions, retours, partenariats — notre équipe est là pour vous aider.',
+  },
+  launchOffer: {
+    badge: 'Offre de Lancement',
+    badgeHot: 'Presque épuisé',
+    onlyLabel: 'Seulement',
+    spotsRemainingTitle: 'Places Restantes',
+    perFirstYear: '/ Première Année',
+    spotsOf: 'sur',
+    spotsRemaining: 'places restantes',
+    firstYearOnly: 'Première Année Seulement',
+    priceDescTemplate: 'Obtenez votre première année pour seulement {launch} DH au lieu de {regular} DH.',
+    filledLabel: 'rempli',
+    insteadOf: 'au lieu de',
+    claimCta: "Réclamer l'Offre",
+    limitedFirst: 'Limité aux premiers',
+    limitedCustomers: 'clients.',
+    autoEnds: "L'offre se termine automatiquement quand toutes les places sont prises.",
+    afterRenewal: 'Renouvellement au prix annuel régulier après la première année.',
+    cta: "Obtenir l'Offre de Lancement",
+    ended: 'Offre de Lancement Terminée',
+    endedSub: 'Abonnez-vous maintenant au prix standard.',
+    perYear: '/ An',
   },
 }
 
@@ -1091,11 +1181,11 @@ export const ar: Translations = {
     q3: 'ما أنواع المناقصات المُدرجة؟',
     a3: 'ندرج جميع المناقصات العمومية الصادرة عن الإدارات الحكومية المغربية — بما فيها الحكومة المركزية والسلطات الجهوية والمؤسسات العامة والبلديات. يشمل ذلك البناء والمعلوميات والتوريدات والاستشارات والخدمات وأكثر.',
     q4: 'كم مرة تُحدَّث المناقصات؟',
-    a4: 'تجمع منصتنا المناقصات يومياً من البوابات الرسمية. تصبح الإعلانات الجديدة متاحة عادةً في غضون ساعات من نشرها. يتلقى مستخدمو بريميوم إشعارات فورية بمجرد رصد مناقصة مطابقة.',
+    a4: 'تجمع منصتنا المناقصات يوميًا من البوابات الرسمية. تصبح الإعلانات الجديدة متاحة عادةً خلال دقائق من نشرها. ويتلقى مشتركو بريميوم إشعارات فورية بمجرد رصد مناقصة مطابقة.',
     q5: 'هل يمكنني استخدام التطبيق بالعربية والفرنسية؟',
     a5: 'نعم. التطبيق متاح بالكامل بالعربية والفرنسية والإنجليزية. يمكنك تغيير لغتك المفضلة في أي وقت من إعدادات التطبيق.',
     q6: 'ما الذي يتضمنه الاشتراك المجاني؟',
-    a6: 'يتيح لك الاشتراك المجاني تصفّح جميع المناقصات العمومية، حفظ ما يصل إلى 5 مناقصات، استخدام الفلاتر الأساسية، واستقبال إشعارات بريد إلكتروني أسبوعية. الملخصات المفصّلة والإشعارات الفورية حصرية للاشتراك المدفوع.',
+    a6: 'يتيح لك الاشتراك المجاني تصفح عدد محدود من المناقصات، وحفظ ما يصل إلى 5 مناقصات، واستخدام الفلاتر الأساسية. أما الملخصات الذكية، والإشعارات الفورية، وجميع المزايا المتقدمة فهي حصرية لاشتراك بريميوم.',
     q7: 'كم يكلف بريميوم؟',
     a7: 'يكلف بريميوم 699 درهم/سنة (يُفوتر سنوياً). يُلغي القيود على المناقصات المحفوظة، ويوفر ملخصات مفصّلة، وتحليلاً للمتطلبات، وإشعارات فورية، وتوصيات مخصصة، وفلاتر متقدمة، ودعماً متعدد اللغات، ودعم عملاء ذا أولوية.',
     q8: 'هل يمكنني إلغاء اشتراكي في أي وقت؟',
@@ -1111,8 +1201,7 @@ export const ar: Translations = {
     headingHighlight: 'لمساعدتك على النمو',
     description:
       'هل لديك سؤال حول Mlue Tenders؟ تريد الاستفسار عن خطة مؤسسية أو شراكة؟ يسعدنا الاستماع إليك.',
-    emailLabel: 'الدعم عبر البريد',
-    emailEmail: 'support@mluetenders.com',
+    emailLabel: 'راسلنا',
     chatLabel: 'الدعم داخل التطبيق',
     chatSub: 'رد خلال 24 ساعة',
     nameLabel: 'الاسم الكامل *',
@@ -1121,11 +1210,16 @@ export const ar: Translations = {
     emailPlaceholder: 'ahmed@example.com',
     companyLabel: 'اسم الشركة',
     companyPlaceholder: 'شركتك (اختياري)',
+    subjectLabel: 'الموضوع *',
+    subjectPlaceholder: 'ما موضوع رسالتك؟',
     messageLabel: 'الرسالة *',
     messagePlaceholder: 'كيف يمكننا مساعدتك؟',
     send: 'إرسال الرسالة',
     successTitle: 'تم الإرسال!',
     successDesc: 'سنتواصل معك خلال 24 ساعة.',
+    validationRequired: 'هذا الحقل مطلوب.',
+    validationEmail: 'يُرجى إدخال بريد إلكتروني صحيح.',
+    errorMessage: 'حدث خطأ ما. يُرجى المحاولة مرة أخرى.',
   },
   download: {
     heading1: 'هل أنت مستعد',
@@ -1170,6 +1264,32 @@ export const ar: Translations = {
     faqHeading1: 'الأسئلة',
     faqHeadingHighlight: 'الأكثر شيوعاً',
     faqDesc: 'اعثر على إجابات سريعة لكل ما تريد معرفته عن Mlue Tenders.',
+    contactTag: 'تواصل معنا',
+    contactHeading1: 'يسعدنا',
+    contactHeadingHighlight: 'التواصل معك',
+    contactDesc: 'أسئلة، ملاحظات، شراكات — فريقنا مستعد لمساعدتك.',
+  },
+  launchOffer: {
+    badge: 'عرض الإطلاق',
+    badgeHot: 'يكاد ينفد',
+    onlyLabel: 'فقط',
+    spotsRemainingTitle: 'مقعد متبقٍ',
+    perFirstYear: '/ السنة الأولى',
+    spotsOf: 'من',
+    spotsRemaining: 'مقعد متبقٍ',
+    firstYearOnly: 'للسنة الأولى فقط',
+    priceDescTemplate: 'احصل على سنتك الأولى بـ {launch} درهم فقط بدلاً من {regular} درهم.',
+    filledLabel: 'مكتمل',
+    insteadOf: 'بدلاً من',
+    claimCta: 'احجز العرض',
+    limitedFirst: 'محدود بأوائل',
+    limitedCustomers: 'عميل.',
+    autoEnds: 'ينتهي العرض تلقائياً عند اكتمال جميع المقاعد.',
+    afterRenewal: 'يُجدَّد بالسعر السنوي المعتاد بعد السنة الأولى.',
+    cta: 'احصل على عرض الإطلاق',
+    ended: 'انتهى عرض الإطلاق',
+    endedSub: 'اشترك الآن بالسعر العادي.',
+    perYear: '/ سنة',
   },
 }
 

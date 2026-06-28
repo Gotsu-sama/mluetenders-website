@@ -146,6 +146,15 @@
 /* Contact success state */
 .success-enter { opacity: 0; animation: anim-success 0.3s ease forwards; }
 
+/* Launch offer — remaining-spots number change */
+@keyframes anim-count-in {
+  from { opacity: 0; transform: translateY(-10px) scale(1.08); }
+  to   { opacity: 1; transform: none; }
+}
+.animate-count-in {
+  animation: anim-count-in 0.45s cubic-bezier(.34,1.56,.64,1) both;
+}
+
 /* CSS accordion (replaces Framer Motion AnimatePresence height animation) */
 .accordion-grid {
   display: grid;
@@ -161,6 +170,7 @@
     transform: none !important;
   }
   .accordion-grid { transition: none !important; }
+  .animate-count-in { opacity: 1 !important; animation: none !important; transform: none !important; }
 }
 
 /* Noise texture overlay for gradients */

@@ -1,13 +1,40 @@
 'use client'
 
-import { Check, X, Zap } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Check, X, Zap, Rocket } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nContext'
 import { useInView } from '@/hooks/useInView'
 import { analytics } from '@/lib/analytics'
+import LaunchOfferBanner from '@/components/sections/LaunchOfferBanner'
+import type { LaunchOfferState } from '@/lib/launchOfferConfig'
+
+const POLL_MS = 60_000
 
 export default function Pricing() {
   const { t } = useI18n()
   const { ref, visible } = useInView()
+  const [offer, setOffer] = useState<LaunchOfferState | null>(null)
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch('/api/launch-offer', { cache: 'no-store' })
+        if (res.ok) setOffer(await res.json())
+      } catch {}
+    }
+    load()
+    const id = setInterval(load, POLL_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  const isOfferActive = !!offer?.active && (offer?.remaining ?? 0) > 0
+  const offerRemaining = offer?.remaining ?? 0
+  const offerTotal = offer?.total ?? 30
+  const launchPrice = offer?.launchPrice ?? 399
+  const regularPrice = offer?.regularPrice ?? 699
+  const filledPct = offer
+    ? Math.max(2, Math.round((offer.claimed / offer.total) * 100))
+    : 0
 
   const plans = [
     {
@@ -19,6 +46,7 @@ export default function Pricing() {
       description: t.pricing.freeDesc,
       cta: t.pricing.freeCta,
       ctaStyle: 'secondary',
+      popular: false,
       features: [
         { label: t.pricing.feat1, included: true },
         { label: t.pricing.feat2, included: true },
@@ -97,76 +125,141 @@ export default function Pricing() {
             </p>
           </div>
 
+          {/* Launch offer strip — hidden automatically when sold out */}
+          <LaunchOfferBanner />
+
           {/* Pricing cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-20">
-            {plans.map((plan, i) => (
-              <div
-                key={i}
-                className={`fade-up relative p-8 rounded-2xl border transition-all duration-300 ${
-                  plan.popular
-                    ? 'border-[#5CA3E0]/40 bg-white dark:bg-[#0F1A2E] shadow-2xl shadow-[#5CA3E0]/15'
-                    : 'border-slate-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.03]'
-                }`}
-                style={{ animationDelay: `${240 + i * 80}ms` }}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-[#5CA3E0] to-[#3D8DD4] text-white shadow-lg shadow-[#5CA3E0]/30">
-                      <Zap className="w-3 h-3 fill-current" />
-                      {t.pricing.popular}
-                    </span>
-                  </div>
-                )}
+            {plans.map((plan, i) => {
+              const isPremium = plan.id === 'premium'
+              const showOffer = isPremium && isOfferActive
+              const isHotOffer = isOfferActive && offerRemaining <= 10
 
-                <div className="mb-6">
-                  <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">{plan.name}</p>
-                  <div className="flex items-end gap-1 mb-2">
-                    <span className="text-4xl font-black text-slate-900 dark:text-white">{plan.price}</span>
-                    <span className="text-lg font-semibold text-slate-500 dark:text-slate-400 mb-1">
-                      {plan.currency}{plan.period}
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">{plan.description}</p>
-                </div>
-
-                <a
-                  href="#download"
-                  onClick={() => analytics.pricingClick(plan.id)}
-                  className={`flex items-center justify-center w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 mb-8 ${
-                    plan.ctaStyle === 'primary'
-                      ? 'bg-gradient-to-r from-[#14754E] to-[#2E9D6A] text-white shadow-lg shadow-[#14754E]/25 hover:shadow-[#14754E]/40 hover:-translate-y-0.5'
-                      : 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
+              return (
+                <div
+                  key={i}
+                  className={`fade-up relative p-8 rounded-2xl border transition-all duration-300 ${
+                    plan.popular
+                      ? 'border-[#14754E]/35 bg-white dark:bg-[#0F1A2E] shadow-2xl shadow-[#14754E]/12'
+                      : 'border-slate-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.03]'
                   }`}
+                  style={{ animationDelay: `${240 + i * 80}ms` }}
                 >
-                  {plan.cta}
-                </a>
-
-                <ul className="flex flex-col gap-3">
-                  {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3">
-                      <div
-                        className={`w-4.5 h-4.5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          f.included
-                            ? 'bg-[#14754E]/15 text-[#14754E] dark:text-[#2E9D6A]'
-                            : 'bg-slate-100 dark:bg-white/5 text-slate-300 dark:text-slate-600'
-                        }`}
-                      >
-                        {f.included ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
-                      </div>
-                      <span
-                        className={`text-sm ${
-                          f.included
-                            ? 'text-slate-700 dark:text-slate-300'
-                            : 'text-slate-400 dark:text-slate-600'
-                        }`}
-                      >
-                        {f.label}
+                  {plan.popular && (
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                      <span className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-[#14754E] to-[#2E9D6A] text-white shadow-lg shadow-[#14754E]/30">
+                        <Zap className="w-3 h-3 fill-current" />
+                        {t.pricing.popular}
                       </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+                    </div>
+                  )}
+
+                  {/* Price / plan header */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">{plan.name}</p>
+                      {showOffer && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-[#14754E]/10 border border-[#14754E]/20 text-[#14754E] dark:text-[#2E9D6A]">
+                          <Rocket className="w-3 h-3" aria-hidden="true" />
+                          {t.launchOffer.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    {showOffer ? (
+                      <div className="flex items-baseline gap-2.5 mb-2">
+                        <span className="text-4xl font-black text-[#14754E] dark:text-[#2E9D6A]">
+                          {launchPrice}
+                        </span>
+                        <div className="flex flex-col leading-none gap-1 pt-0.5">
+                          <span className="text-sm font-medium text-slate-400 dark:text-slate-600 line-through">
+                            {regularPrice} MAD
+                          </span>
+                          <span className="text-sm font-medium text-slate-500 dark:text-slate-400">MAD/year</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-end gap-1 mb-2">
+                        <span className="text-4xl font-black text-slate-900 dark:text-white">{plan.price}</span>
+                        <span className="text-lg font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                          {plan.currency}{plan.period}
+                        </span>
+                      </div>
+                    )}
+
+                    <p className="text-sm text-slate-500 dark:text-slate-400">{plan.description}</p>
+                  </div>
+
+                  {/* Spots counter — only when offer active */}
+                  {showOffer && (
+                    <div className="mb-6">
+                      <div className="flex items-center justify-between mb-1.5 text-xs">
+                        <span
+                          className={`font-medium ${
+                            isHotOffer
+                              ? 'text-amber-600 dark:text-amber-400'
+                              : 'text-slate-600 dark:text-slate-400'
+                          }`}
+                        >
+                          <strong className="font-semibold text-slate-900 dark:text-white">
+                            {offerRemaining}
+                          </strong>
+                          {' / '}{offerTotal} {t.launchOffer.spotsRemaining}
+                        </span>
+                      </div>
+                      <div className="h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-[#14754E] to-[#2E9D6A] transition-[width] duration-700 ease-out"
+                          style={{ width: `${filledPct}%` }}
+                          role="progressbar"
+                          aria-valuenow={offer?.claimed}
+                          aria-valuemin={0}
+                          aria-valuemax={offerTotal}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <a
+                    href="#download"
+                    onClick={() => analytics.pricingClick(plan.id)}
+                    className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold transition-all duration-200 mb-8 ${
+                      plan.ctaStyle === 'primary'
+                        ? 'bg-gradient-to-r from-[#14754E] to-[#2E9D6A] text-white shadow-lg shadow-[#14754E]/25 hover:shadow-[#14754E]/40 hover:-translate-y-0.5'
+                        : 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    {showOffer && <Rocket className="w-4 h-4" aria-hidden="true" />}
+                    {showOffer ? t.launchOffer.claimCta : plan.cta}
+                  </a>
+
+                  <ul className="flex flex-col gap-3">
+                    {plan.features.map((f, j) => (
+                      <li key={j} className="flex items-center gap-3">
+                        <div
+                          className={`w-4.5 h-4.5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            f.included
+                              ? 'bg-[#14754E]/15 text-[#14754E] dark:text-[#2E9D6A]'
+                              : 'bg-slate-100 dark:bg-white/5 text-slate-300 dark:text-slate-600'
+                          }`}
+                        >
+                          {f.included ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
+                        </div>
+                        <span
+                          className={`text-sm ${
+                            f.included
+                              ? 'text-slate-700 dark:text-slate-300'
+                              : 'text-slate-400 dark:text-slate-600'
+                          }`}
+                        >
+                          {f.label}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
           </div>
 
           {/* Comparison table */}

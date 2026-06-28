@@ -155,6 +155,12 @@ const organizationSchema = {
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   sameAs: [],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'contact@mluetenders.com',
+    contactType: 'customer support',
+    availableLanguage: ['English', 'French', 'Arabic'],
+  },
 }
 
 const websiteSchema = {

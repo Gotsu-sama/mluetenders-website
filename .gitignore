@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# launch offer counter (live data — do not commit)
+/data/launch-offer.json

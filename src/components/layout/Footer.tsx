@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, MapPin } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nContext'
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/config'
 
 export default function Footer() {
   const { t } = useI18n()
@@ -19,7 +20,7 @@ export default function Footer() {
       { label: t.footer.about, href: '/#about' },
       { label: t.footer.contact, href: '/contact' },
       { label: t.footer.faqLink, href: '/faq' },
-      { label: t.footer.support, href: 'mailto:support@mluetenders.com' },
+      { label: t.footer.support, href: CONTACT_MAILTO },
     ],
     [t.footer.legal]: [
       { label: t.footer.privacy, href: '/privacy-policy' },
@@ -47,11 +48,12 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-2.5">
               <a
-                href="mailto:support@mluetenders.com"
+                href={CONTACT_MAILTO}
+                aria-label={`Send email to ${CONTACT_EMAIL}`}
                 className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-[#5CA3E0] transition-colors"
               >
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                support@mluetenders.com
+                {CONTACT_EMAIL}
               </a>
               <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
