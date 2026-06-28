@@ -6,6 +6,11 @@
   :root {
     --blue: 92 163 224;
     --green: 20 117 78;
+    --font-primary: var(--font-inter);
+  }
+
+  html[lang="ar"] {
+    --font-primary: var(--font-tajawal);
   }
 
   * {

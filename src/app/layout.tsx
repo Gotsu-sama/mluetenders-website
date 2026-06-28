@@ -1,16 +1,24 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Tajawal } from 'next/font/google'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'
 import { I18nProvider } from '@/i18n/I18nContext'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ScrollTracker from '@/components/analytics/ScrollTracker'
 import './globals.css'
+import 'flag-icons/css/flag-icons.min.css'
 import Script from "next/script";
 
 const inter = Inter({
   subsets: ['latin', 'latin-ext'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const tajawal = Tajawal({
+  subsets: ['arabic'],
+  weight: ['300', '400', '500', '700', '800'],
+  variable: '--font-tajawal',
   display: 'swap',
 })
 
@@ -163,7 +171,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" dir="ltr" suppressHydrationWarning className={`${inter.variable} ${tajawal.variable}`}>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
@@ -175,7 +183,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <I18nProvider>
             <Navbar />
             <main>{children}</main>

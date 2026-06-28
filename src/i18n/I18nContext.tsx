@@ -10,19 +10,21 @@ type I18nContextType = {
 }
 
 const I18nContext = createContext<I18nContextType>({
-  locale: 'en',
+  locale: 'ar',
   setLocale: () => {},
-  t: translations.en,
+  t: translations.ar,
 })
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en')
+  const [locale, setLocaleState] = useState<Locale>('ar')
 
   useEffect(() => {
     const saved = localStorage.getItem('mlue-locale') as Locale
     if (saved && ['en', 'fr', 'ar'].includes(saved)) {
       setLocaleState(saved)
       applyLocale(saved)
+    } else {
+      applyLocale('ar')
     }
   }, [])
 
