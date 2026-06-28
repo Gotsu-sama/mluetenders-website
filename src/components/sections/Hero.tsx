@@ -1,9 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Download, Bell, RefreshCw, Clock, Home, Search, Star, User } from 'lucide-react'
-import { fadeInUp, staggerContainer, scaleIn } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
 
 export default function Hero() {
@@ -37,41 +35,32 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Content */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="text-center lg:text-left"
-          >
-            {/* Tag */}
-            <motion.div variants={fadeInUp} className="inline-flex mb-6">
+          <div className="text-center lg:text-left">
+            <div className="hero-fade-up inline-flex mb-6" style={{ animationDelay: '50ms' }}>
               <span className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#5CA3E0]/25 bg-[#5CA3E0]/8 dark:bg-[#5CA3E0]/10 text-[#5CA3E0] text-sm font-medium">
                 {t.hero.tag}
               </span>
-            </motion.div>
+            </div>
 
-            {/* Headline */}
-            <motion.h1
-              variants={fadeInUp}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.08] text-slate-900 dark:text-white mb-6"
+            <h1
+              className="hero-fade-up text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.08] text-slate-900 dark:text-white mb-6"
+              style={{ animationDelay: '150ms' }}
             >
               {t.hero.headline1}{' '}
               <span className="text-gradient">{t.hero.headlineHighlight}</span>{' '}
               {t.hero.headline2}
-            </motion.h1>
+            </h1>
 
-            {/* Subtitle */}
-            <motion.p
-              variants={fadeInUp}
-              className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
+            <p
+              className="hero-fade-up text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
+              style={{ animationDelay: '250ms' }}
             >
               {t.hero.description}
-            </motion.p>
+            </p>
 
-            {/* CTAs */}
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
+            <div
+              className="hero-fade-up flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
+              style={{ animationDelay: '350ms' }}
             >
               <Link
                 href="#download"
@@ -87,15 +76,13 @@ export default function Hero() {
               >
                 {t.hero.exploreFeatures}
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right: Phone Mockup */}
-          <motion.div
-            variants={scaleIn}
-            initial="hidden"
-            animate="visible"
-            className="relative flex justify-center lg:justify-end"
+          <div
+            className="hero-scale-in relative flex justify-center lg:justify-end"
+            style={{ animationDelay: '300ms' }}
           >
             <div className="relative animate-float">
               {/* Phone frame */}
@@ -183,12 +170,10 @@ export default function Hero() {
 
               {/* Floating badges */}
               {floatingBadges.map(({ icon: Icon, label, color, pos }, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + i * 0.2, duration: 0.4 }}
-                  className={`absolute ${pos} flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-[#0F1A2E] border border-slate-200 dark:border-white/10 shadow-xl`}
+                  className={`hero-scale-in absolute ${pos} flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-[#0F1A2E] border border-slate-200 dark:border-white/10 shadow-xl`}
+                  style={{ animationDelay: `${800 + i * 200}ms` }}
                 >
                   <div
                     className={`w-7 h-7 rounded-lg flex items-center justify-center ${color === 'blue' ? 'bg-[#5CA3E0]/15' : 'bg-[#14754E]/15'}`}
@@ -198,13 +183,13 @@ export default function Hero() {
                   <span className="text-xs font-medium text-slate-700 dark:text-slate-300 whitespace-nowrap">
                     {label}
                   </span>
-                </motion.div>
+                </div>
               ))}
 
               {/* Glow */}
               <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 h-16 bg-[#14754E]/20 blur-3xl rounded-full" />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

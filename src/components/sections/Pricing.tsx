@@ -1,13 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Check, X, Zap } from 'lucide-react'
-import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { useInView } from '@/hooks/useInView'
 import { analytics } from '@/lib/analytics'
 
 export default function Pricing() {
   const { t } = useI18n()
+  const { ref, visible } = useInView()
 
   const plans = [
     {
@@ -74,42 +74,40 @@ export default function Pricing() {
       <div className="absolute inset-0 bg-gradient-to-b from-white to-slate-50 dark:from-[#0B1220] dark:to-[#080E1A]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
+        <div ref={ref} className={visible ? 'in-view' : ''}>
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <motion.div variants={fadeInUp} className="inline-flex mb-4">
+            <div className="fade-up inline-flex mb-4" style={{ animationDelay: '0ms' }}>
               <span className="px-3 py-1 rounded-full border border-[#5CA3E0]/25 bg-[#5CA3E0]/8 dark:bg-[#5CA3E0]/10 text-[#5CA3E0] text-sm font-medium">
                 {t.pricing.tag}
               </span>
-            </motion.div>
-            <motion.h2
-              variants={fadeInUp}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4"
+            </div>
+            <h2
+              className="fade-up text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4"
+              style={{ animationDelay: '80ms' }}
             >
               {t.pricing.heading1}{' '}
               <span className="text-gradient">{t.pricing.headingHighlight}</span>
-            </motion.h2>
-            <motion.p variants={fadeInUp} className="text-lg text-slate-600 dark:text-slate-400">
+            </h2>
+            <p
+              className="fade-up text-lg text-slate-600 dark:text-slate-400"
+              style={{ animationDelay: '160ms' }}
+            >
               {t.pricing.description}
-            </motion.p>
+            </p>
           </div>
 
           {/* Pricing cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-20">
             {plans.map((plan, i) => (
-              <motion.div
+              <div
                 key={i}
-                variants={fadeInUp}
-                className={`relative p-8 rounded-2xl border transition-all duration-300 ${
+                className={`fade-up relative p-8 rounded-2xl border transition-all duration-300 ${
                   plan.popular
                     ? 'border-[#5CA3E0]/40 bg-white dark:bg-[#0F1A2E] shadow-2xl shadow-[#5CA3E0]/15'
                     : 'border-slate-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.03]'
                 }`}
+                style={{ animationDelay: `${240 + i * 80}ms` }}
               >
                 {plan.popular && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
@@ -167,12 +165,15 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Comparison table */}
-          <motion.div variants={fadeInUp} className="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/[0.07]">
+          <div
+            className="fade-up overflow-hidden rounded-2xl border border-slate-200 dark:border-white/[0.07]"
+            style={{ animationDelay: '420ms' }}
+          >
             <div className="grid grid-cols-3 bg-slate-50 dark:bg-white/[0.03] border-b border-slate-200 dark:border-white/[0.07] px-6 py-4">
               <div className="text-sm font-semibold text-slate-500 dark:text-slate-400">{t.pricing.tableFeature}</div>
               <div className="text-center text-sm font-semibold text-slate-700 dark:text-slate-300">{t.pricing.tableFree}</div>
@@ -212,8 +213,8 @@ export default function Pricing() {
                 </div>
               </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )

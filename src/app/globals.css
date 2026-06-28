@@ -103,6 +103,61 @@
   }
 }
 
+/* ===== Entrance animation keyframes ===== */
+@keyframes anim-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes anim-slide-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes anim-slide-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes anim-scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes anim-success {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Default: invisible until triggered */
+.fade-up, .slide-left, .slide-right, .scale-in { opacity: 0; }
+
+/* Triggered when ancestor gains .in-view */
+.in-view .fade-up    { animation: anim-fade-up    0.6s cubic-bezier(.22,1,.36,1) forwards; }
+.in-view .slide-left  { animation: anim-slide-left  0.7s cubic-bezier(.22,1,.36,1) forwards; }
+.in-view .slide-right { animation: anim-slide-right 0.7s cubic-bezier(.22,1,.36,1) forwards; }
+.in-view .scale-in    { animation: anim-scale-in   0.5s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* Hero: plays immediately on mount — not gated by .in-view */
+.hero-fade-up  { opacity: 0; animation: anim-fade-up    0.6s cubic-bezier(.22,1,.36,1) forwards; }
+.hero-scale-in { opacity: 0; animation: anim-scale-in   0.5s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* Contact success state */
+.success-enter { opacity: 0; animation: anim-success 0.3s ease forwards; }
+
+/* CSS accordion (replaces Framer Motion AnimatePresence height animation) */
+.accordion-grid {
+  display: grid;
+  transition: grid-template-rows 0.3s cubic-bezier(.22,1,.36,1);
+}
+
+/* Extend reduced-motion to cover new animation classes */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .slide-left, .slide-right, .scale-in,
+  .hero-fade-up, .hero-scale-in, .success-enter {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  .accordion-grid { transition: none !important; }
+}
+
 /* Noise texture overlay for gradients */
 .noise::after {
   content: '';

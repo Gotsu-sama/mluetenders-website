@@ -1,14 +1,14 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Smartphone, Download as DownloadIcon } from 'lucide-react'
 import Image from 'next/image'
-import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { useInView } from '@/hooks/useInView'
 import { analytics } from '@/lib/analytics'
 
 export default function Download() {
   const { t } = useI18n()
+  const { ref, visible } = useInView()
 
   return (
     <section id="download" className="py-24 lg:py-32 relative overflow-hidden">
@@ -25,40 +25,34 @@ export default function Download() {
       <div className="absolute inset-0 bg-grid-dark opacity-50" />
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          <motion.div variants={fadeInUp} className="inline-flex mb-6">
+        <div ref={ref} className={visible ? 'in-view' : ''}>
+          <div className="fade-up inline-flex mb-6" style={{ animationDelay: '0ms' }}>
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#14754E] to-[#2E9D6A] flex items-center justify-center shadow-2xl shadow-[#14754E]/30 mx-auto">
               <Smartphone className="w-8 h-8 text-white" />
             </div>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            variants={fadeInUp}
-            className="text-3xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight text-white mb-5 leading-[1.1]"
+          <h2
+            className="fade-up text-3xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight text-white mb-5 leading-[1.1]"
+            style={{ animationDelay: '80ms' }}
           >
             {t.download.heading1}{' '}
             <span className="text-gradient">{t.download.headingHighlight}</span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            variants={fadeInUp}
-            className="text-lg text-slate-300 max-w-2xl mx-auto mb-12 leading-relaxed"
+          <p
+            className="fade-up text-lg text-slate-300 max-w-2xl mx-auto mb-12 leading-relaxed"
+            style={{ animationDelay: '160ms' }}
           >
             {t.download.description}
-          </motion.p>
+          </p>
 
-          <motion.div variants={fadeInUp} className="flex items-center justify-center">
+          <div className="fade-up flex items-center justify-center" style={{ animationDelay: '240ms' }}>
             <button
               type="button"
-
               onClick={() => {
-                analytics.downloadApp("android");
-                analytics.outboundClick("google_play");
+                analytics.downloadApp('android')
+                analytics.outboundClick('google_play')
               }}
               className="group inline-flex items-center gap-5 pl-5 pr-7 py-4 rounded-2xl bg-white shadow-2xl shadow-black/30 hover:shadow-[0_20px_60px_rgba(20,117,78,0.35)] hover:-translate-y-1 transition-all duration-300 border border-white/10"
             >
@@ -77,12 +71,15 @@ export default function Download() {
               </div>
               <DownloadIcon className="w-5 h-5 text-[#14754E] ml-2 group-hover:translate-y-0.5 transition-transform flex-shrink-0" />
             </button>
-          </motion.div>
+          </div>
 
-          <motion.p variants={fadeInUp} className="mt-8 text-sm text-slate-500">
+          <p
+            className="fade-up mt-8 text-sm text-slate-500"
+            style={{ animationDelay: '320ms' }}
+          >
             {t.download.disclaimer}
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
       </div>
     </section>
   )

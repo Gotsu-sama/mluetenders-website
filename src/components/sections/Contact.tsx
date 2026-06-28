@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { Mail, MessageSquare, Send, CheckCircle } from 'lucide-react'
-import { staggerContainer, fadeInUp, slideInLeft, slideInRight } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { useInView } from '@/hooks/useInView'
 import { analytics } from '@/lib/analytics'
 
 export default function Contact() {
   const { t } = useI18n()
+  const { ref, visible } = useInView()
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
 
@@ -30,15 +30,12 @@ export default function Contact() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid lg:grid-cols-2 gap-16 items-start"
+        <div
+          ref={ref}
+          className={`grid lg:grid-cols-2 gap-16 items-start${visible ? ' in-view' : ''}`}
         >
           {/* Left */}
-          <motion.div variants={slideInLeft}>
+          <div className="slide-left" style={{ animationDelay: '0ms' }}>
             <div className="inline-flex mb-6">
               <span className="px-3 py-1 rounded-full border border-[#5CA3E0]/25 bg-[#5CA3E0]/8 dark:bg-[#5CA3E0]/10 text-[#5CA3E0] text-sm font-medium">
                 {t.contact.tag}
@@ -77,10 +74,10 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right: Form */}
-          <motion.div variants={slideInRight}>
+          <div className="slide-right" style={{ animationDelay: '100ms' }}>
             <div className="p-8 rounded-2xl border border-slate-200 dark:border-white/[0.07] bg-white dark:bg-white/[0.03] shadow-xl shadow-slate-200/30 dark:shadow-black/30">
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -149,11 +146,7 @@ export default function Contact() {
                   </button>
                 </form>
               ) : (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center text-center py-12"
-                >
+                <div className="success-enter flex flex-col items-center text-center py-12">
                   <div className="w-16 h-16 rounded-2xl bg-[#14754E]/10 flex items-center justify-center text-[#14754E] dark:text-[#2E9D6A] mb-6">
                     <CheckCircle className="w-8 h-8" />
                   </div>
@@ -161,11 +154,11 @@ export default function Contact() {
                   <p className="text-slate-500 dark:text-slate-400">
                     {t.contact.successDesc}
                   </p>
-                </motion.div>
+                </div>
               )}
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )

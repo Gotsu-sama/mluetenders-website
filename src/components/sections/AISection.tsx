@@ -1,12 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { CheckCircle, AlertCircle, TrendingUp, Clock, FileText, FileSearch } from 'lucide-react'
-import { slideInLeft, slideInRight, staggerContainer, fadeInUp } from '@/lib/animations'
 import { useI18n } from '@/i18n/I18nContext'
+import { useInView } from '@/hooks/useInView'
 
 export default function TenderDetailSection() {
   const { t } = useI18n()
+  const { ref, visible } = useInView()
 
   const capabilities = [
     { icon: FileText, text: t.tenderDetail.cap1, color: 'green' },
@@ -26,15 +26,12 @@ export default function TenderDetailSection() {
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid lg:grid-cols-2 gap-16 items-center"
+        <div
+          ref={ref}
+          className={`grid lg:grid-cols-2 gap-16 items-center${visible ? ' in-view' : ''}`}
         >
           {/* Left: Tender Detail Card */}
-          <motion.div variants={slideInLeft} className="relative">
+          <div className="slide-left relative" style={{ animationDelay: '0ms' }}>
             <div className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0F1A2E] shadow-2xl shadow-slate-200/50 dark:shadow-black/50 overflow-hidden p-6">
               {/* Card header */}
               <div className="flex items-center gap-3 mb-5 pb-5 border-b border-slate-100 dark:border-white/[0.06]">
@@ -128,10 +125,10 @@ export default function TenderDetailSection() {
             {/* Decorative glow */}
             <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-[#14754E]/15 blur-3xl rounded-full pointer-events-none" />
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#14754E]/15 blur-3xl rounded-full pointer-events-none" />
-          </motion.div>
+          </div>
 
           {/* Right: Content */}
-          <motion.div variants={slideInRight}>
+          <div className="slide-right" style={{ animationDelay: '100ms' }}>
             <div className="inline-flex mb-6">
               <span className="px-3 py-1 rounded-full border border-[#5CA3E0]/25 bg-[#5CA3E0]/8 dark:bg-[#5CA3E0]/10 text-[#5CA3E0] text-sm font-medium">
                 {t.tenderDetail.tag}
@@ -147,13 +144,7 @@ export default function TenderDetailSection() {
               {t.tenderDetail.description}
             </p>
 
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="flex flex-col gap-4"
-            >
+            <div className="flex flex-col gap-4">
               {capabilities.map((cap, i) => {
                 const Icon = cap.icon
                 const colorMap = {
@@ -162,10 +153,10 @@ export default function TenderDetailSection() {
                   orange: 'text-[#5CA3E0] bg-[#5CA3E0]/10',
                 }
                 return (
-                  <motion.div
+                  <div
                     key={i}
-                    variants={fadeInUp}
-                    className="flex items-start gap-4 p-4 rounded-xl border border-slate-100 dark:border-white/[0.06] bg-white dark:bg-white/[0.03] hover:border-[#5CA3E0]/25 transition-colors duration-200"
+                    className="fade-up flex items-start gap-4 p-4 rounded-xl border border-slate-100 dark:border-white/[0.06] bg-white dark:bg-white/[0.03] hover:border-[#5CA3E0]/25 transition-colors duration-200"
+                    style={{ animationDelay: `${200 + i * 80}ms` }}
                   >
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${colorMap[cap.color as keyof typeof colorMap]}`}>
                       <Icon className="w-4 h-4" />
@@ -173,12 +164,12 @@ export default function TenderDetailSection() {
                     <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed pt-0.5">
                       {cap.text}
                     </p>
-                  </motion.div>
+                  </div>
                 )
               })}
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
