@@ -55,12 +55,13 @@ export default function Download() {
           <motion.div variants={fadeInUp} className="flex items-center justify-center">
             <a
               href="#"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
+  console.log("CLICK");
 
-                analytics.downloadApp("android");
-                analytics.outboundClick("google_play");
-              }}
+  analytics.downloadApp("android");
+
+  analytics.outboundClick("google_play");
+}}
               className="group inline-flex items-center gap-5 pl-5 pr-7 py-4 rounded-2xl bg-white shadow-2xl shadow-black/30 hover:shadow-[0_20px_60px_rgba(20,117,78,0.35)] hover:-translate-y-1 transition-all duration-300 border border-white/10"
             >
               <Image
