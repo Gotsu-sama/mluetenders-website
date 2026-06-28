@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { TrendingUp, Mail, MapPin } from 'lucide-react'
+import Image from 'next/image'
+import { Mail, MapPin } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nContext'
 
 export default function Footer() {
@@ -33,8 +34,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#14754E] to-[#2E9D6A] flex items-center justify-center shadow-lg shadow-[#14754E]/20">
-                <TrendingUp className="w-4 h-4 text-white" strokeWidth={2.5} />
+              <div className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                <Image src="/background.png" alt="" width={32} height={32} className="absolute inset-0 w-full h-full object-cover" />
+                <Image src="/foreground.png" alt="Mlue Tenders logo" width={20} height={20} className="absolute inset-0 m-auto w-5 h-5 object-contain" />
               </div>
               <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white">
                 Mlue<span className="text-gradient">Tenders</span>
