@@ -53,8 +53,9 @@ export default function Download() {
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex items-center justify-center">
-            <a
-              href="#"
+            <button
+  type="button"
+              
               onClick={() => {
   console.log("CLICK");
 
@@ -78,7 +79,7 @@ export default function Download() {
                 <p className="text-slate-900 font-bold text-xl leading-tight">Google Play</p>
               </div>
               <DownloadIcon className="w-5 h-5 text-[#14754E] ml-2 group-hover:translate-y-0.5 transition-transform flex-shrink-0" />
-            </a>
+            </button>
           </motion.div>
 
           <motion.p variants={fadeInUp} className="mt-8 text-sm text-slate-500">
