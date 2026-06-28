@@ -93,6 +93,16 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob,
+  .animate-float,
+  .animate-spin-slow,
+  .animate-pulse-slow,
+  .animate-gradient {
+    animation: none !important;
+  }
+}
+
 /* Noise texture overlay for gradients */
 .noise::after {
   content: '';

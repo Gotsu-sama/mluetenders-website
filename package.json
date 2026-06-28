@@ -18,6 +18,14 @@
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0"
   },
+  "browserslist": [
+    "Chrome >= 90",
+    "Edge >= 90",
+    "Firefox >= 90",
+    "Safari >= 14",
+    "Samsung >= 14",
+    "not IE 11"
+  ],
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",

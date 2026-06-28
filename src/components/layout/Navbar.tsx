@@ -53,7 +53,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-              <Image src="/background.png" alt="" width={32} height={32} className="absolute inset-0 w-full h-full object-cover" />
+              <Image src="/background.png" alt="" width={32} height={32} priority className="absolute inset-0 w-full h-full object-cover" />
               <Image src="/foreground.png" alt="Mlue Tenders logo" width={20} height={20} className="absolute inset-0 m-auto w-5 h-5 object-contain" />
             </div>
             <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white">

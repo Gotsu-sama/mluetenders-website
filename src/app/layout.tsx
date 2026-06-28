@@ -165,6 +165,8 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning className={inter.variable}>
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -197,9 +199,7 @@ export default function RootLayout({
 
     window.gtag('js', new Date());
 
-    window.gtag('config', 'G-6PGJMKBZSW', {
-      debug_mode: true
-    });
+    window.gtag('config', 'G-6PGJMKBZSW');
   `}
         </Script>
       </body>
